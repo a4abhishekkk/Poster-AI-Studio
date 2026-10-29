@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusConnect | College Event Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+            line-height: 1.6;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #1e3a8a;
+            color: white;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 8%;
+        }
+
+        .navbar h1 {
+            font-size: 25px;
+        }
+
+        .navbar ul {
+            list-style: none;
+
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: #bfdbfe;
+        }
+
+
+        /* HERO */
+
+        .hero {
+            min-height: 450px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 30px;
+
+            background:
+                linear-gradient(rgba(30, 58, 138, 0.85),
+                    rgba(37, 99, 235, 0.85));
+
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h2 {
+            font-size: 44px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 19px;
+            margin-bottom: 30px;
+        }
+
+
+        /* BUTTON */
+
+        .btn,
+        button,
+        .small-btn {
+            background: #2563eb;
+            color: white;
+
+            border: none;
+
+            padding: 12px 22px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            display: inline-block;
+        }
+
+        .btn:hover,
+        button:hover,
+        .small-btn:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* ABOUT */
+
+        .about {
+            text-align: center;
+
+            padding: 60px 10%;
+        }
+
+        .about h2 {
+            margin-bottom: 20px;
+            font-size: 30px;
+        }
+
+        .about p {
+            max-width: 850px;
+            margin: auto;
+        }
+
+
+        /* CATEGORIES */
+
+        .categories {
+            text-align: center;
+
+            padding: 50px 8%;
+        }
+
+        .categories h2,
+        .featured-events h2,
+        .events-section h2 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .category-container {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 20px;
+
+            margin-top: 30px;
+        }
+
+        .category-card {
+            background: white;
+
+            padding: 30px 20px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+
+            transition: 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .category-card .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .category-card h3 {
+            margin-bottom: 10px;
+        }
+
+
+        /* FEATURED EVENTS */
+
+        .featured-events {
+            padding: 50px 8%;
+            text-align: center;
+        }
+
+        .event-container {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 25px;
+
+            margin-top: 30px;
+        }
+
+        .event-card {
+            background: white;
+
+            padding: 25px;
+
+            text-align: left;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+
+            transition: 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-card h3 {
+            margin: 15px 0;
+        }
+
+        .event-card p {
+            margin: 8px 0;
+        }
+
+        .event-card button {
+            margin-top: 15px;
+        }
+
+
+        /* EVENT CATEGORY LABEL */
+
+        .event-category {
+            display: inline-block;
+
+            padding: 5px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .dance {
+            background: #fce7f3;
+            color: #be185d;
+        }
+
+        .music {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .technical {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .sports {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .academic {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .arts {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+
+        /* EVENTS PAGE */
+
+        .events-section {
+            padding: 60px 8%;
+
+            text-align: center;
+        }
+
+        .events-section>p {
+            margin-bottom: 20px;
+        }
+
+
+        /* SEARCH */
+
+        #searchBox {
+            width: 80%;
+
+            max-width: 500px;
+
+            padding: 13px;
+
+            margin: 20px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 16px;
+        }
+
+
+        /* REGISTRATION */
+
+        .registration-section {
+            max-width: 600px;
+
+            margin: 60px auto;
+
+            padding: 35px;
+
+            background: white;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .registration-section h2 {
+            text-align: center;
+
+            margin-bottom: 10px;
+        }
+
+        .form-intro {
+            text-align: center;
+
+            margin-bottom: 20px;
+
+            color: #666;
+        }
+
+        form {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+
+            margin-bottom: 5px;
+
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+
+            border-color: #2563eb;
+        }
+
+        form button {
+            margin-top: 25px;
+        }
+
+
+        /* MESSAGE */
+
+        #message {
+            margin-top: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background: #1e3a8a;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+
+            margin-top: 50px;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .navbar ul {
+                gap: 12px;
+            }
+
+            .hero h2 {
+                font-size: 30px;
+            }
+
+            .event-container {
+                grid-template-columns: 1fr;
+            }
+
+            .registration-section {
+                margin: 30px 15px;
+            }
+
+            #searchBox {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <h1>CampusConnect</h1>
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="registration.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>College Event Management System</h2>
+
+            <p>
+                Discover, explore and register for exciting
+                college events from one platform.
+            </p>
+
+            <a href="events.html" class="btn">
+                Explore Events
+            </a>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about">
+        <h2>About CampusConnect</h2>
+
+        <p>
+            CampusConnect is a college event management platform
+            designed to help students discover and register for
+            technical, cultural, musical, dance, sports and
+            academic events.
+        </p>
+    </section>
+
+    <!-- EVENT CATEGORIES -->
+    <section class="categories">
+
+        <h2>Event Categories</h2>
+
+        <div class="category-container">
+
+            <div class="category-card">
+                <div class="icon">💃</div>
+                <h3>Dance</h3>
+                <p>
+                    Participate in solo, group and freestyle
+                    dance competitions.
+                </p>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">🎵</div>
+                <h3>Music</h3>
+                <p>
+                    Enjoy singing competitions, bands and
+                    musical performances.
+                </p>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">💻</div>
+                <h3>Technical</h3>
+                <p>
+                    Join hackathons, coding competitions,
+                    quizzes and workshops.
+                </p>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">🏏</div>
+                <h3>Sports</h3>
+                <p>
+                    Participate in cricket, football,
+                    badminton and chess.
+                </p>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">📚</div>
+                <h3>Academic</h3>
+                <p>
+                    Attend seminars, workshops and academic
+                    competitions.
+                </p>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">🎨</div>
+                <h3>Arts</h3>
+                <p>
+                    Show your creativity through painting,
+                    photography and design.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- UPCOMING EVENTS -->
+    <section class="featured-events">
+
+        <h2>Upcoming Events</h2>
+
+        <div class="event-container">
+
+            <div class="event-card">
+                <span class="event-category dance">
+                    Dance
+                </span>
+
+                <h3>Dance Fiesta 2026</h3>
+
+                <p>📅 10 October 2026</p>
+                <p>⏰ 4:00 PM</p>
+                <p>📍 College Auditorium</p>
+
+                <a href="events.html" class="small-btn">
+                    View Details
+                </a>
+            </div>
+
+            <div class="event-card">
+                <span class="event-category music">
+                    Music
+                </span>
+
+                <h3>Campus Music Night</h3>
+
+                <p>📅 15 October 2026</p>
+                <p>⏰ 6:00 PM</p>
+                <p>📍 Open Air Theatre</p>
+
+                <a href="events.html" class="small-btn">
+                    View Details
+                </a>
+            </div>
+
+            <div class="event-card">
+                <span class="event-category technical">
+                    Technical
+                </span>
+
+                <h3>CodeFest 2026</h3>
+
+                <p>📅 20 October 2026</p>
+                <p>⏰ 10:00 AM</p>
+                <p>📍 Computer Lab</p>
+
+                <a href="events.html" class="small-btn">
+                    View Details
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            © 2026 CampusConnect | College Event Management System
+        </p>
+    </footer>
+    <script>
+        /* ================================
+         SEARCH EVENTS
+      ================================ */
+
+        function searchEvents() {
+
+            let input =
+                document
+                    .getElementById("searchBox")
+                    .value
+                    .toLowerCase();
+
+            let cards =
+                document.querySelectorAll(".event-card");
+
+            cards.forEach(function (card) {
+
+                let text =
+                    card.innerText.toLowerCase();
+
+                if (text.includes(input)) {
+
+                    card.style.display = "block";
+
+                } else {
+
+                    card.style.display = "none";
+                }
+
+            });
+        }
+
+
+        /* ================================
+           REGISTER FROM EVENTS PAGE
+        ================================ */
+
+        function registerEvent(eventName) {
+
+            localStorage.setItem(
+                "selectedEvent",
+                eventName
+            );
+
+            window.location.href =
+                "registration.html";
+        }
+
+
+        /* ================================
+           REGISTRATION FORM
+        ================================ */
+
+        let form =
+            document.getElementById(
+                "registrationForm"
+            );
+
+
+        if (form) {
+
+            /* GET SELECTED EVENT */
+
+            let selectedEvent =
+                localStorage.getItem(
+                    "selectedEvent"
+                );
+
+
+            /* AUTOMATICALLY SELECT EVENT */
+
+            if (selectedEvent) {
+
+                document.getElementById(
+                    "event"
+                ).value = selectedEvent;
+            }
+
+
+            /* FORM SUBMISSION */
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    /* GET FORM VALUES */
+
+                    let name =
+                        document
+                            .getElementById("studentName")
+                            .value
+                            .trim();
+
+                    let studentId =
+                        document
+                            .getElementById("studentId")
+                            .value
+                            .trim();
+
+                    let email =
+                        document
+                            .getElementById("email")
+                            .value
+                            .trim();
+
+                    let phone =
+                        document
+                            .getElementById("phone")
+                            .value
+                            .trim();
+
+                    let course =
+                        document
+                            .getElementById("course")
+                            .value;
+
+                    let selectedEvent =
+                        document
+                            .getElementById("event")
+                            .value;
+
+                    let message =
+                        document.getElementById(
+                            "message"
+                        );
+
+
+                    /* VALIDATION */
+
+                    if (name === "") {
+
+                        message.innerHTML =
+                            "Please enter your name.";
+
+                        return;
+                    }
+
+
+                    if (studentId === "") {
+
+                        message.innerHTML =
+                            "Please enter your Student ID.";
+
+                        return;
+                    }
+
+
+                    if (email === "") {
+
+                        message.innerHTML =
+                            "Please enter your email.";
+
+                        return;
+                    }
+
+
+                    if (phone.length !== 10 ||
+                        isNaN(phone)) {
+
+                        message.innerHTML =
+                            "Please enter a valid 10-digit phone number.";
+
+                        return;
+                    }
+
+
+                    if (course === "") {
+
+                        message.innerHTML =
+                            "Please select your course.";
+
+                        return;
+                    }
+
+
+                    if (selectedEvent === "") {
+
+                        message.innerHTML =
+                            "Please select an event.";
+
+                        return;
+                    }
+
+
+                    /* CREATE REGISTRATION OBJECT */
+
+                    let registration = {
+
+                        name: name,
+
+                        studentId: studentId,
+
+                        email: email,
+
+                        phone: phone,
+
+                        course: course,
+
+                        event: selectedEvent,
+
+                        registrationDate:
+                            new Date().toLocaleString()
+
+                    };
+
+
+                    /* GET OLD REGISTRATIONS */
+
+                    let registrations =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "registrations"
+                            )
+                        ) || [];
+
+
+                    /* ADD NEW REGISTRATION */
+
+                    registrations.push(
+                        registration
+                    );
+
+
+                    /* SAVE DATA */
+
+                    localStorage.setItem(
+                        "registrations",
+                        JSON.stringify(
+                            registrations
+                        )
+                    );
+
+
+                    /* SUCCESS MESSAGE */
+
+                    message.innerHTML =
+                        "✅ Registration successful!";
+
+
+                    /* RESET FORM */
+
+                    form.reset();
+
+
+                    /* REMOVE SELECTED EVENT */
+
+                    localStorage.removeItem(
+                        "selectedEvent"
+                    );
+
+                }
+            );
+        }
+    </script>
+</body>
+
+</html>
